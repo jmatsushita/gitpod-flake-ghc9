@@ -6,7 +6,7 @@ This is a [nix](https://nixos.org/manual/nix/stable/) template configured for ep
 
 Click the button below to start a new development environment:
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/arianvp/test-gitpod-nix
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/arianvp/test-gitpod-nix)
 
 ## Get Started With Your Own Project
 
