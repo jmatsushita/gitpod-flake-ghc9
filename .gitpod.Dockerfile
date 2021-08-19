@@ -16,10 +16,11 @@ ENV USER gitpod
 WORKDIR /home/gitpod
 
 RUN touch .bash_profile \
- && curl https://nixos.org/releases/nix/nix-2.3.14/install | sh
+ && sh <(curl -L https://github.com/numtide/nix-flakes-installer/releases/download/nix-2.4pre20210604_8e6ee1b/install)
 
 RUN echo '. /home/gitpod/.nix-profile/etc/profile.d/nix.sh' >> /home/gitpod/.bashrc
 RUN mkdir -p /home/gitpod/.config/nixpkgs && echo '{ allowUnfree = true; }' >> /home/gitpod/.config/nixpkgs/config.nix
+RUN mkdir -p /home/gitpod/.config/nix && echo 'experimental-features = nix-command flakes' >> /home/gitpod/.config/nix/nix.conf
 
 # Install cachix
 RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
@@ -34,3 +35,4 @@ RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
 RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
   && nix-env -i direnv \
   && direnv hook bash >> /home/gitpod/.bashrc
+  
