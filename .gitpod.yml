@@ -4,9 +4,18 @@ tasks:
   - init: >
       mkdir -p /home/gitpod/.config/nix &&
       echo 'sandbox = false' >> /home/gitpod/.config/nix/nix.conf &&
-      echo 'experimental-features = nix-command flakes' >> /home/gitpod/.config/nix/nix.conf
+      # echo 'experimental-features = nix-command flakes' >> /home/gitpod/.config/nix/nix.conf
+      direnv allow
+    command: >
+      cabal test
 
 vscode:
   extensions:
     - bbenoist.Nix
     - rust-lang.rust
+    - haskell.haskell
+
+vscode:
+  extensions:
+    - s0kil.vscode-hsx
+    - arrterian.nix-env-selector

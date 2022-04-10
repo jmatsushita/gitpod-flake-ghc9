@@ -1,34 +1,49 @@
 {
-  description = "Gitpod rust experiment";
+  description = "gitpod-flake-ghc9";
+  nixConfig.bash-prompt = "\[develop\]$ ";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/master";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
 
-  inputs.utils.url = "github:numtide/flake-utils";
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          config = { allowBroken = true; };
+          overlays = [];
+        };
+        haskellPackages = pkgs.haskellPackages.override  {
+          overrides = self: super: {
+            # In case you need them
+          };
+        };
+        packageName ="gitpod-flake-ghc9";
+      in {
 
-  outputs = { self, utils, nixpkgs }:
-    utils.lib.eachDefaultSystem (system:
-      let pkgs = nixpkgs.legacyPackages.${system}; in
-      {
-        devShell = with pkgs; mkShell {
-          buildInputs = [
-            openssl
+        packages.${packageName} =
+          haskellPackages.callCabal2nix packageName self rec {
+            # Link cabal extra-librarires to nix system packages
+            zlib = pkgs.zlib;
+          };
+
+        defaultPackage = self.packages.${system}.${packageName};
+
+        devShell = haskellPackages.shellFor {
+          packages = p: [];
+
+          buildInputs = with haskellPackages; [
+            pkgs.zlib
+            pkgs.zlib.dev
+
+            cabal-install
+            ghcid
+            haskell-language-server
+            hlint
+            ormolu
           ];
-          nativeBuildInputs = [
-
-            pkgconfig
-
-            kubectl
-            kubernetes-helm
-            kustomize
-            terraform_0_13
-            shellcheck
-            kind
-            jq
-
-            rustc
-            rls
-            rustfmt
-            rust-analyzer
-            cargo
-          ];
+          withHoogle = true;
         };
       });
 }
