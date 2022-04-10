@@ -8,7 +8,7 @@ tasks:
   # we copy the nix store into the .nix-store workspace folder for prebuilding
   - init: >
       cabal build &&
-      nix copy --to ./.nix-store .#
+      nix copy --no-check-sigs --to ./.nix-store --all
 
   - command: >
       cabal test
