@@ -14,7 +14,7 @@
           config = { allowBroken = true; };
           overlays = [];
         };
-        haskellPackages = pkgs.haskellPackages.override  {
+        haskellPackages = pkgs.haskell.packages.ghc922.override  {
           overrides = self: super: {
             # In case you need them
           };
