@@ -34,3 +34,9 @@ RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
 RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
   && nix-env -i direnv \
   && direnv hook bash >> /home/gitpod/.bashrc
+
+# Whitelist direnv workspace
+RUN mkdir -p /home/gitpod/.config/nix && \
+    echo 'sandbox = false' >> /home/gitpod/.config/nix/nix.conf && \
+    mkdir -p /home/gitpod/.config/direnv && \
+    echo '[whitelist]\nprefix = [ "/workspace" ]' >> /home/gitpod/.config/direnv/direnv.toml
