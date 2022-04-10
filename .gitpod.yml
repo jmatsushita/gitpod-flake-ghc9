@@ -14,8 +14,4 @@ vscode:
     - bbenoist.Nix
     - rust-lang.rust
     - haskell.haskell
-
-vscode:
-  extensions:
-    - s0kil.vscode-hsx
-    - arrterian.nix-env-selector
+    - mkhl.direnv
