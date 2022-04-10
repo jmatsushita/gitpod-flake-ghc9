@@ -1,11 +1,9 @@
 image:
   file: .gitpod.Dockerfile
-tasks:
-  # direnv will be reloaded and will build the local flake to the nix store
-  # we load the prebuilt .nix-store serialisation if there is one
-  - before: >
-      if [ -f .nix-store ]; then nix copy --from .nix-store; fi
 
+tasks:
+  # direnv will be reloaded and will load the prebuilt .nix-store serialisation
+  # if there is one, and then build the local flake to the nix store
   # we build the project (in the dist-newstyle workspace folder)
   # we copy the nix store into the .nix-store workspace folder for prebuilding
   - init: >
