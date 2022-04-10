@@ -1,9 +1,11 @@
 image:
   file: .gitpod.Dockerfile
 tasks:
-  # echo 'experimental-features = nix-command flakes' >> /home/gitpod/.config/nix/nix.conf
+  # Before running init, direnv will be reloaded and build the local flake to the nix store
   - init: >
-      nix-store --import < .nix-store &&
+      # If there is a prebuilt .nix-store serialisation we load it
+      if [ -f .nix-store ]; then nix-store --import < .nix-store; fi &&
+      # We create a .nix-store serialisation so that it's prebuilt
       nix-store --export $(nix-store -qR gitpod-flake-ghc9) > .nix-store &&
       cabal build
 
