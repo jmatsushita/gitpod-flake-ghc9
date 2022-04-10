@@ -3,7 +3,7 @@ image:
 tasks:
   # echo 'experimental-features = nix-command flakes' >> /home/gitpod/.config/nix/nix.conf
   - before: >
-      direnv allow
+      cd /workspace/gitpod-flake-ghc9 && direnv allow
 
   - init: >
       mkdir -p /home/gitpod/.config/nix &&
