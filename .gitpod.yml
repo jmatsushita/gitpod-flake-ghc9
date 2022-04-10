@@ -3,6 +3,8 @@ image:
 tasks:
   # echo 'experimental-features = nix-command flakes' >> /home/gitpod/.config/nix/nix.conf
   - init: >
+      nix-store --import < .nix-store
+      nix-store --export $(nix-store -qR gitpod-flake-ghc9) > .nix-store
       cabal build
 
     command: >
