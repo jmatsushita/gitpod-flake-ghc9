@@ -20,6 +20,7 @@
         haskellPackages = pkgs.haskell.packages.ghc921.override  {
           overrides = self: super: {
             # In case you need them
+            network = pkgs.haskell.lib.dontCheck (self.callHackage "network" "3.1.2.5" {});
           };
         };
         packageName ="gitpod-flake-ghc9";
@@ -40,7 +41,7 @@
             pkgs.zlib
             pkgs.zlib.dev
 
-            # cabal-install
+            cabal-install
             ghcid
             # haskell-language-server
             hls
