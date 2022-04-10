@@ -1,16 +1,17 @@
 image:
   file: .gitpod.Dockerfile
 tasks:
-  # direnv will be reloaded and build the local flake to the nix store
+  # direnv will be reloaded and will build the local flake to the nix store
+  # we load the prebuilt .nix-store serialisation if there is one
   - before: >
-      cabal build &&
-      nix-store --export $(nix-store -qR gitpod-flake-ghc9) > .nix-store
-  # We load the prebuilt .nix-store serialisation
-  - init: >
-      # We create a .nix-store serialisation so that it's prebuilt
-      nix-store --import < .nix-store
+      if [ -f .nix-store ]; then nix copy --from .nix-store; fi &&
 
-    command: >
+  # we load the prebuilt .nix-store serialisation if there is one
+  - init: >
+      cabal build &&
+      nix copy --to .nix-store .#
+
+  - command: >
       cabal test
 
 vscode:
