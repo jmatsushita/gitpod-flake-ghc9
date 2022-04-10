@@ -1,1 +1,5 @@
 FROM jmatsushita/gitpod-flake-ghc9:latest
+
+RUN mkdir -p /home/gitpod/.config/nix &&
+    echo 'sandbox = false' >> /home/gitpod/.config/nix/nix.conf &&
+    echo '[whitelist]\nprefix = [ "/workspace/gitpod-flake-ghc9" ]' >> /home/gitpod/.config/direnv
