@@ -16,7 +16,7 @@ ENV USER gitpod
 WORKDIR /home/gitpod
 
 RUN touch .bash_profile \
- && sh <(curl https://releases.nixos.org/nix/nix-2.7.0/install) --daemon
+ && curl https://releases.nixos.org/nix/nix-2.7.0/install | sh
 
 RUN echo '. /home/gitpod/.nix-profile/etc/profile.d/nix.sh' >> /home/gitpod/.bashrc
 RUN mkdir -p /home/gitpod/.config/nixpkgs && echo '{ allowUnfree = true; }' >> /home/gitpod/.config/nixpkgs/config.nix
