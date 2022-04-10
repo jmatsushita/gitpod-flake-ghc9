@@ -8,8 +8,7 @@ tasks:
       nix-store --export $(nix-store -qR gitpod-flake-ghc9) > .nix-store
   - init: >
       # We create a .nix-store serialisation so that it's prebuilt
-      nix-store --import < .nix-store &&
-      cabal build
+      nix-store --import < .nix-store
 
     command: >
       cabal test
