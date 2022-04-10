@@ -4,9 +4,10 @@ tasks:
   # echo 'experimental-features = nix-command flakes' >> /home/gitpod/.config/nix/nix.conf
   - init: >
       mkdir -p /home/gitpod/.config/nix &&
-      echo 'sandbox = false' >> /home/gitpod/.config/nix/nix.conf &&
-      direnv allow
+      echo 'sandbox = false' >> /home/gitpod/.config/nix/nix.conf
+
     command: >
+      direnv allow &&
       cabal test
 
 vscode:
