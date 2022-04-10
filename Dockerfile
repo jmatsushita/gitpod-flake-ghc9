@@ -49,6 +49,7 @@ RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
 # Whitelist direnv workspace
 RUN mkdir -p /home/gitpod/.config/nix \
   && echo 'sandbox = false' >> /home/gitpod/.config/nix/nix.conf \
+  && echo 'experimental-features = nix-command flakes' >> /home/gitpod/.config/nix/nix.conf \
   && mkdir -p /home/gitpod/.config/direnv \
   && echo '[whitelist]\nprefix = [ "/workspace" ]' >> /home/gitpod/.config/direnv/direnv.toml
 
